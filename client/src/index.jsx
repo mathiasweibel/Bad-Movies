@@ -1,36 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import axios from 'axios'
 // import AnyComponent from './components/filename.jsx'
 import Search from './components/Search.jsx'
 import Movies from './components/Movies.jsx'
 
 class App extends React.Component {
-  constructor(props) {
-  	super(props)
-  	this.state = {
+  constructor (props) {
+    super(props)
+    this.state = {
       movies: [{deway: "movies"}],
       favorites: [{deway: "favorites"}],
-      showFaves: false,
-    };
-    
-    // you might have to do something important here!
+      showFaves: false
+    }
+    // Bind
+    this.getMovies = this.getMovies.bind(this)
   }
 
-  getMovies() {
+  getMovies () {
     // make an axios request to your server on the GET SEARCH endpoint
   }
 
-  saveMovie() {
+  saveMovie () {
     // same as above but do something diff
   }
 
-  deleteMovie() {
+  deleteMovie () {
     // same as above but do something diff
   }
 
-  swapFavorites() {
-  //dont touch
+  swapFavorites () {
+  // dont touch
     this.setState({
       showFaves: !this.state.showFaves
     });
