@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const request = require('request')
+const { getApiData, getApiDataByGenre } = require('./helpers/apiHelpers.js')
 const app = express()
 const port = 3000
 
@@ -36,11 +37,12 @@ app.get('/genres', function(req, res) {
   // make an axios request to get the official list of genres from themoviedb
   // use this endpoint. you will need your API key from signup: 
   // https://api.themoviedb.org/3/genre/movie/list
-  // https://api.themoviedb.org/3/movie/550?api_key=
+  //
 });
 
 app.get('/search', function(req, res) {
-  // use this endpoint to search for movies by genres (using API key): https://api.themoviedb.org/3/discover/movie
+  // use this endpoint to search for movies by genres (using API key): 
+  // https://api.themoviedb.org/3/discover/movie
   // and sort them by votes (worst first) using the search parameters in themoviedb API
   // do NOT save the results into the database; render results directly on the page
 });

@@ -6,5 +6,9 @@
 const mongoDb = require('../../db/mongodb')
 
 module.exports = {
+  // Save API data in the DB
 
+  // Get stored data from DB
+  let storedMovies = mongoDb.find()
+  console.log(`* * * storedMovies in DB:`, storedMovies)
 }
