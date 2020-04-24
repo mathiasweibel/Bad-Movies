@@ -10,17 +10,14 @@ class Search extends React.Component {
       selected: null
     }
     this.getGenres = this.getGenres.bind(this)
-    this.mapGenres = this.mapGenres.bind(this)
     this.selectGenre = this.selectGenre.bind(this)
   }
 
   componentDidMount () {
     this.getGenres()
-    setTimeout(this.mapGenres(), 1000)
-    setTimeout(console.log(`this.state:`, this.state), 2000)
   }
 
-  getGenres () {
+  getGenres (next) {
     axios.get('/genres')
       .then((res) => {
         // res = array of objs w/ id and name props
@@ -31,24 +28,17 @@ class Search extends React.Component {
         this.setState({
           genres: apiGenres
         })
-        console.log(`apiGenres`, apiGenres)
       })
       .catch(err => {
         console.log(`!!! GET /genres err:`, err)
       })
   }
 
-  mapGenres () {
-    const genreOptions = []
-    this.state.genres.map((genreName) => {
-      genreOptions.push(genreName)
-    })
-  }
-
   selectGenre (e) {
+    console.log(`e.target.value from selectGenre`, e.target.value)
     this.setState({
       selected: e.target.value
-    })
+    }) // delayed?
   }
 
   render () {
@@ -62,7 +52,7 @@ class Search extends React.Component {
 
         <select onChange={this.selectGenre} id="dropdown">
           {this.state.genres.map(genre => {
-            return <option value={genre.id}>{genre.name}</option>
+            return <option value={genre.id} key={JSON.stringify(genre)}>{genre.name}</option>
           })}
         </select>
         <br /><br />
@@ -76,5 +66,5 @@ class Search extends React.Component {
 
 export default Search
 
-
+// Alternate: try using this attr-style parameter to set up the dropdown
 // options={this.state.genreOptions}
