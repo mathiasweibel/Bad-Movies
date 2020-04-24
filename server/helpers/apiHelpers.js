@@ -15,33 +15,30 @@ const { API_KEY } = require('../../config.js')
 module.exports = {
 
   // Get search data
-  // Add after API_KEY: 
-  getApiGenres = (next) => {
+  // Add after API_KEY:
+  getApiGenres: (req, res) => {
     axios
       .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
       .then(apiData => {
-        let genreList = []
-        apiData.genres.map((genre) => {
-          genreList.push(genre.name)
-        })
-        return genreList
+        console.log(`*** apiData.data.genres`, apiData.data.genres)
+        res.send(apiData.data.genres)
       })
       .catch(err => {
-        console.log(err)
+        console.log(`*** ERR | getApiGenres:`, err)
       })
   }
 
-  // TODO: Get data by genre
-  getApiDataByGenre = (genreId) => {
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`)
-      .then(apiData => {
-        console.log(`*** apiData.results[0]:`, apiData.results[0])
-
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  // Get data by genre
+  // getApiDataByGenre: (genreId, next) => {
+  //   axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`)
+  //     .then(apiData => {
+  //       console.log(`*** apiData.results[0]:`, apiData.results[0])
+  //       next(apiData)
+  //     })
+  //     .catch(err => {
+  //       console.log(`*** ERR | getApiDataByGenre:`, err)
+  //     })
+  // }
 
 }
 
@@ -54,7 +51,7 @@ apiData
   .results: [ {}s ]
 
 
-result data:
+movie data:
   .id
   .title
   .tagline

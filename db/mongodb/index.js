@@ -14,6 +14,11 @@ db.once('open', () => {
 })
 
 // Schema
+const genreSchema = new mongoose.Schema({
+  id: { type: Number, required: true },
+  name: { type: String, required: true }
+})
+
 const movieSchema = new mongoose.Schema({
   title: { type: String, required: true },
   rating: { type: String, required: true },
@@ -21,9 +26,12 @@ const movieSchema = new mongoose.Schema({
   description: { type: String, required: false }
 })
 
+const Genre = mongoose.model('Genre', genreSchema)
 const Movie = mongoose.model('Movie', movieSchema)
+// Mongoose compiles a 'Movie' model and looks for the 'movies' collection
 
 module.exports = {
   db,
+  Genre,
   Movie
 }

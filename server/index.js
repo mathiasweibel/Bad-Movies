@@ -2,7 +2,9 @@ const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const request = require('request')
+const controllers = require('./controllers/movieController')
 const { getApiData, getApiDataByGenre } = require('./helpers/apiHelpers.js')
+
 const app = express()
 const port = 3000
 
@@ -37,7 +39,8 @@ app.get('/genres', function(req, res) {
   // make an axios request to get the official list of genres from themoviedb
   // use this endpoint. you will need your API key from signup: 
   // https://api.themoviedb.org/3/genre/movie/list
-  //
+  // console.log(`*** req:`, req)
+  controllers.getGenres(req, res)
 });
 
 app.get('/search', function(req, res) {
@@ -58,3 +61,14 @@ app.post('/delete', function(req, res) {
 app.listen(3000, function() {
   console.log(`Listening on ${port}`);
 });
+
+
+
+
+/*
+router.get('/search', movieController.getSearch)
+router.get('/genres', movieController.getGenres)
+router.post('/save', movieController.saveMovie)
+router.delete('/delete', movieController.deleteMovie)
+
+*/

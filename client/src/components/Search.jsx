@@ -7,11 +7,24 @@ class Search extends React.Component {
     this.state = {
       genres: []
     }
+    this.getGenres = this.getGenres.bind(this)
+  }
+
+  componentDidMount () {
+    this.getGenres()
   }
 
   getGenres () {
     // axios request to get the list of genres from your endpoint GET GENRES
-    axios.get()
+    axios.get('/genres')
+      .then((res) => {
+        // array of objs
+        console.log(`*** GET /genres res:`, res.data)
+        // setState genres
+      })
+      .catch(err => {
+        console.log(`!!! GET /genres err:`, err)
+      })
   }
 
   render () {

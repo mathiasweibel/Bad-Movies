@@ -1,7 +1,7 @@
-const movieModel = require('../models/movieModel.js');
-const apiHelpers = require('../helpers/apiHelpers.js');
+const movieModel = require('../models/movieModel.js')
+const apiHelpers = require('../helpers/apiHelpers.js')
 
-//Return requests to the client
+// Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
     // get the search genre
@@ -17,10 +17,10 @@ module.exports = {
   },
   getGenres: (req, res) => {
     // make an axios request to get the list of official genres
-    // 
     // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
-
     // send back
+    // console.log(`Testing controllers.getGenres`)
+    apiHelpers.getApiGenres(req, res)
   },
   saveMovie: (req, res) => {
 
@@ -29,3 +29,4 @@ module.exports = {
 
   }
 }
+
