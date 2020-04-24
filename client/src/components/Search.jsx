@@ -5,20 +5,25 @@ class Search extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      genres: []
+      genres: [],
+      genreOptions: [],
+      selected: null
     }
     this.getGenres = this.getGenres.bind(this)
+    this.mapGenres = this.mapGenres.bind(this)
+    this.selectGenre = this.selectGenre.bind(this)
   }
 
   componentDidMount () {
     this.getGenres()
+    setTimeout(this.mapGenres(), 1000)
+    setTimeout(console.log(`this.state:`, this.state), 2000)
   }
 
   getGenres () {
     axios.get('/genres')
       .then((res) => {
-        // array of objs
-        console.log(`*** GET /genres res:`, res.data)
+        // res = array of objs w/ id and name props
         let apiGenres = []
         res.data.map(object => {
           apiGenres.push(object.name)
@@ -26,11 +31,24 @@ class Search extends React.Component {
         this.setState({
           genres: apiGenres
         })
-        console.log(`*** this.state.genres:`, this.state.genres)
+        console.log(`apiGenres`, apiGenres)
       })
       .catch(err => {
         console.log(`!!! GET /genres err:`, err)
       })
+  }
+
+  mapGenres () {
+    const genreOptions = []
+    this.state.genres.map((genreName) => {
+      genreOptions.push(genreName)
+    })
+  }
+
+  selectGenre (input) {
+    this.setState({
+      selected: input
+    })
   }
 
   render () {
@@ -42,11 +60,7 @@ class Search extends React.Component {
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? */}
 
-        <select>
-          <option value="theway">The Way</option>
-          <option value="thisway">This Way</option>
-          <option value="thatway">That Way</option>
-        </select>
+        <select options={this.state.genreOptions} onChange={this.selectGenre} id="dropdown" />
         <br /><br />
 
         <button>Search</button>
