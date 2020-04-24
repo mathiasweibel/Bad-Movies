@@ -26,7 +26,7 @@ class Search extends React.Component {
         // res = array of objs w/ id and name props
         let apiGenres = []
         res.data.map(object => {
-          apiGenres.push(object.name)
+          apiGenres.push(object)
         })
         this.setState({
           genres: apiGenres
@@ -45,9 +45,9 @@ class Search extends React.Component {
     })
   }
 
-  selectGenre (input) {
+  selectGenre (e) {
     this.setState({
-      selected: input
+      selected: e.target.value
     })
   }
 
@@ -60,7 +60,11 @@ class Search extends React.Component {
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? */}
 
-        <select options={this.state.genreOptions} onChange={this.selectGenre} id="dropdown" />
+        <select onChange={this.selectGenre} id="dropdown">
+          {this.state.genres.map(genre => {
+            return <option value={genre.id}>{genre.name}</option>
+          })}
+        </select>
         <br /><br />
 
         <button>Search</button>
@@ -71,3 +75,6 @@ class Search extends React.Component {
 }
 
 export default Search
+
+
+// options={this.state.genreOptions}
