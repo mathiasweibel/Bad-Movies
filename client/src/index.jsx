@@ -34,7 +34,7 @@ class App extends React.Component {
 
   saveMovie (movieObj) {
     // same as above but do something diff
-    console.log(`... saveMovie | movieObj.title:`, movieObj.title)
+    console.log(`... App.saveMovie | movieObj.title:`, movieObj.title)
     axios.post('/save', { params: { movie: movieObj } })
       .then((output) => {
         console.log(`... saveMovie | output:`, output)
@@ -43,8 +43,9 @@ class App extends React.Component {
       .catch(err => console.log(`! ERR | saveMovie:`, err))
   }
 
-  deleteMovie () {
+  deleteMovie (movieObj) {
     // same as above but do something diff
+    axios.delete('/delete', { params: { movie: movieObj } })
   }
 
   swapFavorites () {

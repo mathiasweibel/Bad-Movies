@@ -12,9 +12,9 @@ module.exports = {
     console.log(`$$ controller getSearch() | genreId`, genreId)
     api.getMoviesByGenre(req, res, genreId)
   },
-  saveMovie: (req, res, movieObj) => {
-    console.log(`$$ controller saveMovie() | req.body`, req.body, movieObj)
-    // 
+  saveMovie: (req, res) => {
+    console.log(`$$ controller saveMovie() | req.body.params.movie`, req.body.params.movie)
+    let movieObj = req.body.params.movie
     models.save(movieObj)
   },
   retrieveMovie: (req, res) => {
@@ -22,8 +22,8 @@ module.exports = {
     // let movieTitle = req.body.results.title
     // models.retrieve({ title: movieTitle })
   },
-  deleteMovie: (req, res) => {
+  deleteMovie: (req, res, movieObj) => {
     console.log(`$$ controller deleteMovie() | req.body`, req.body)
-    models.delete()
+    models.delete(movieObj)
   }
 }
