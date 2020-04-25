@@ -36,10 +36,6 @@ Use the routes below to build your application:
 //****************************************************************************************
 
 app.get('/genres', function(req, res) {
-  // make an axios request to get the official list of genres from themoviedb
-  // use this endpoint. you will need your API key from signup: 
-  // https://api.themoviedb.org/3/genre/movie/list
-  // console.log(`*** req:`, req)
   controllers.getGenres(req, res)
 });
 
@@ -48,14 +44,19 @@ app.get('/search', function(req, res) {
   // https://api.themoviedb.org/3/discover/movie
   // and sort them by votes (worst first) using the search parameters in themoviedb API
   // do NOT save the results into the database; render results directly on the page
+  console.log(`$ server rcvd GET/search | req.body:`, req.body)
+  controllers.getSearch(req, res)
 });
 
 app.post('/save', function(req, res) {
   //save movie as favorite into the database
+  console.log(`$ server rcvd POST/save | req.body:`, req.body)
+
 });
 
 app.post('/delete', function(req, res) {
   //remove movie from favorites into the database
+  console.log(`$ server rcvd POST/delete | req.body:`, req.body)
 });
 
 app.listen(3000, function() {

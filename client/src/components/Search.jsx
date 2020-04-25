@@ -25,6 +25,7 @@ class Search extends React.Component {
         res.data.map(object => {
           apiGenres.push(object)
         })
+        apiGenres.unshift({ name: "(Genre)", id: 0 })
         this.setState({
           genres: apiGenres
         })
@@ -57,7 +58,7 @@ class Search extends React.Component {
         </select>
         <br /><br />
 
-        <button>Search</button>
+        <button onClick={() => (this.props.getMovies(this.state.selected))}>Search</button>
 
       </div>
     )
@@ -68,3 +69,7 @@ export default Search
 
 // Alternate: try using this attr-style parameter to set up the dropdown
 // options={this.state.genreOptions}
+
+// If you call a method on another component from within this component, you have to either
+// call a native method that calls the parent's method, or call the parent's method inside
+// an arrow function (see Search button above)
