@@ -25,21 +25,20 @@ class Search extends React.Component {
         res.data.map(object => {
           apiGenres.push(object)
         })
-        apiGenres.unshift({ name: "(Genre)", id: 0 })
+        apiGenres.unshift({ name: "(Genre)", id: null })
         this.setState({
           genres: apiGenres
         })
       })
       .catch(err => {
-        console.log(`!!! GET /genres err:`, err)
+        console.log(`!!! getGenres err:`, err)
       })
   }
 
   selectGenre (e) {
-    console.log(`e.target.value from selectGenre`, e.target.value)
     this.setState({
       selected: e.target.value
-    }) // delayed?
+    })
   }
 
   render () {
@@ -47,9 +46,6 @@ class Search extends React.Component {
       <div className="search">
         <button onClick={() => {this.props.swapFavorites()}}>{this.props.showFaves ? "Show Results" : "Show Favorites"}</button>
         <br /><br />
-
-        {/* Make the select options dynamic from genres !!! */}
-        {/* How can you tell which option has been selected from here? */}
 
         <select onChange={this.selectGenre} id="dropdown">
           {this.state.genres.map(genre => {

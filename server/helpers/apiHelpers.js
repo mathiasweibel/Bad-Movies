@@ -2,20 +2,9 @@ const request = require('request')
 const axios = require('axios')
 const { API_KEY } = require('../../config.js')
 
-// FOR REFERENCE:
-// https://www.themoviedb.org/account/signup
-// https://developers.themoviedb.org/3/discover/movie-discover
-// Get your API Key and save it in your config file
-// HTTP REQUEST URL:
-// https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}
-
-// TODO: write out logic/functions required to query TheMovieDB.org
-// Don't forget to export your functions and require them within your server file
 
 module.exports = {
 
-  // Get search data
-  // Add after API_KEY:
   getGenres: (req, res) => {
     axios
       .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
@@ -27,11 +16,14 @@ module.exports = {
       })
   },
 
-  // Get data by genre
   getMoviesByGenre: (req, res, genreId) => {
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`)
+    axios
+      .get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`)
       .then(apiData => {
-        console.log(`*** apiData.results:`, apiData.results)
+        // apiData.data.results = [ {movie}s ... ]
+        let movies = JSON.parse(JSON.stringify(apiData.data.results)) // array of objs
+        res.send(movies)
+        // TODO: refactor for params/options
       })
       .catch(err => {
         console.log(`! ERR | api.getMoviesByGenre:`, err)
@@ -40,7 +32,9 @@ module.exports = {
 
 }
 
-// DATA / SCHEMA
+// GET requests do NOT have a body!
+
+// 6d32bc58e27646a3ce237a154e8891da
 
 /* 
 https://developers.themoviedb.org/3/discover/movie-discover?api_key=api_key=6d32bc58e27646a3ce237a154e8891da

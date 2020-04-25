@@ -3,62 +3,43 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const request = require('request')
 const controllers = require('./controllers/movieController')
-const { getApiData, getApiDataByGenre } = require('./helpers/apiHelpers.js')
+const api = require('./helpers/apiHelpers.js')
 
 const app = express()
 const port = 3000
 
-//Helpers
-const apiHelpers = require('./helpers/apiHelpers.js');
-
 //Middleware
 app.use(morgan('dev'))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded())
 
-// Due to express, when you load the page, it doesn't make a get request to '/', it 
-// simply serves up the dist folder
+// Serve static files
 app.use(express.static(__dirname + '/../client/dist'))
 
-//*****************************************************************************************
-
-/*
-Use the routes below to build your application:
-
-|      URL         | HTTP Verb |  Result                                                   |
-| :------------:   | :-------: | :-----------------------------------------------------:   |
-|     /genres      |   GET     |  Respond with JSON of all genres                          |
-|     /search      |   GET     |  Respond with JSON of all movies by the selected genre    |
-|     /save        |   POST    |  Save selected movie as favorite                          |
-|     /delete      |   POST    |  Remove selected movie as favorite                        |
-
-*/
-
-//****************************************************************************************
-
-app.get('/genres', function(req, res) {
+// Routing
+app.get('/genres', function(req, res, genreId) {
   controllers.getGenres(req, res)
 });
 
-app.get('/search', function(req, res) {
-  // use this endpoint to search for movies by genres (using API key): 
-  // https://api.themoviedb.org/3/discover/movie
-  // and sort them by votes (worst first) using the search parameters in themoviedb API
-  // do NOT save the results into the database; render results directly on the page
-  console.log(`$ server rcvd GET/search | req.body:`, req.body)
-  controllers.getSearch(req, res)
+app.get('/search', (req, res) => {
+  console.log(`$$ server GET/search | req.query:`, req.query)
+  // req.query = params obj
+  controllers.getSearch(req, res, req.query.genreId)
 });
 
-app.post('/save', function(req, res) {
+app.post('/save', (req, res, movieObj) => {
   //save movie as favorite into the database
-  console.log(`$ server rcvd POST/save | req.body:`, req.body)
-
+  console.log(`$ server POST/save | req.body, movieObj.title:`, req.body, movieObj.title)
+  controllers.saveMovie(req, res, movieObj)
 });
 
-app.post('/delete', function(req, res) {
+app.post('/delete', (req, res) => {
   //remove movie from favorites into the database
-  console.log(`$ server rcvd POST/delete | req.body:`, req.body)
+  console.log(`$ server POST/delete | req.body:`, req.body)
+  controllers.deleteMovie(req, res)
 });
 
+// Activate server
 app.listen(3000, function() {
   console.log(`Listening on ${port}`);
 });
