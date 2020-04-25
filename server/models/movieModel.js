@@ -3,31 +3,32 @@
 // For SQL
 // const sqlDb = require('../../db/sql');
 // For Mongo
-const db = require('../../db/mongodb')
+const { db, Movie } = require('../../db/mongodb')
 
 module.exports = {
   // Save API data in the DB
-  save: ({ title, rating, img, descr, year }) => {
+  save: ({title, rating, img, descr, year}) => {
     // apiData.genres or apiData
-    let update = {
-      title,
-      rating,
-      img,
-      descr
-    }
+    // let update = {
+    //   title,
+    //   rating,
+    //   img,
+    //   descr
+    // }
     let options = {
       upsert: true
     }
     let movieToSave = new Movie({
-      title,
-      rating,
-      img,
-      descr,
-      year
+      title: title,
+      rating: rating,
+      img: img,
+      descr: descr,
+      year: year
     })
-    db.movies.create(movieToSave, (err) => {
-      if (err) console.log(`! ERR: models.save | movie: ${movieToSave.title}`, err)
-    })
+    Movie.createAsync(movieToSave)
+    // db.movieObj.create(movieObj, (err) => {
+    //   if (err) console.log(`! ERR: models.save | movie: ${movieObj.title}`, err)
+    // })
   },
 
   // Get stored data from DB
@@ -39,6 +40,6 @@ module.exports = {
   },
 
   delete: ({ title }) => {
-    db.movies.findOneAndDelete({ title })
+    Movie.findOneAndDelete({ title })
   }
 }

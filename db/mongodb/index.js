@@ -17,9 +17,9 @@ db.once('open', () => {
 
 // Schema
 const movieSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  rating: { type: String, required: true },
-  img: { type: String, required: true },
+  title: { type: String, required: false },
+  rating: { type: String, required: false },
+  img: { type: String, required: false },
   descr: { type: String, required: false },
   year: {type: String, required: false }
 })

@@ -15,6 +15,8 @@ class App extends React.Component {
     // Bind
     this.getMovies = this.getMovies.bind(this)
     this.saveMovie = this.saveMovie.bind(this)
+    // this.deleteMovie = this.deleteMovie.bind(this)
+    // this.swapFavorites = this.swapFavorites.bind(this)
   }
 
   getMovies (genreId) {
