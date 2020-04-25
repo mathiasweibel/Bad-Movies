@@ -21,7 +21,7 @@ module.exports = {
     })
     Movie.createAsync(movieToSave)
       .then(output => {
-        console.log(`::: Movie.createAsync | output:`, output)
+        // console.log(`::: Movie.createAsync | output:`, output)
         res.send(201)
       })
       .catch(err => {

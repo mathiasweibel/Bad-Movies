@@ -28,7 +28,7 @@ class Movies extends React.Component {
           return (
             <a href="#" onClick={this.favorite(movie)}>
               <li className="movie_item" key={movie.id}>
-                <img src={'https://image.tmdb.org/t/p/w500/' + movie.img} />
+                <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
                 <div className="movie_description">
                   <h2>{movie.title}</h2>
                   <span>{movie.img}</span>
