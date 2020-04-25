@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Search from './components/Search.jsx'
 import Movies from './components/Movies.jsx'
@@ -15,16 +15,14 @@ class App extends React.Component {
     // Bind
     this.getMovies = this.getMovies.bind(this)
     this.saveMovie = this.saveMovie.bind(this)
-    // this.deleteMovie = this.deleteMovie.bind(this)
-    // this.swapFavorites = this.swapFavorites.bind(this)
+    this.deleteMovie = this.deleteMovie.bind(this)
+    this.swapFavorites = this.swapFavorites.bind(this)
   }
 
   getMovies (genreId) {
     // make an axios request to your server on the GET SEARCH endpoint
     axios.get('/search', { params: { genreId: genreId } })
       .then((apiData) => {
-        // console.log(`$$ getMovies GET sent w/ genreId:`, genreId)
-        // console.log(`$$ getMovies apiData.data:`, apiData.data)
         this.setState({
           movies: apiData.data
         })
@@ -46,7 +44,11 @@ class App extends React.Component {
   deleteMovie (movieObj) {
     // same as above but do something diff
     axios.delete('/delete', { params: { movie: movieObj } })
-      .then(())
+      .then((output) => {
+        console.log(`::: App.deleteMovie | output`, output)
+        
+      })
+      .catch(err => console.log(`! ERR | App.deleteMovie:`, err))
   }
 
   swapFavorites () {

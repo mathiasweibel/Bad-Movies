@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import path from 'path'
 
 class Movies extends React.Component {
   constructor(props) {
@@ -27,9 +28,10 @@ class Movies extends React.Component {
           return (
             <a href="#" onClick={this.favorite(movie)}>
               <li className="movie_item" key={movie.id}>
-                <img src={movie.img} />
+                <img src={'https://image.tmdb.org/t/p/w500/' + movie.img} />
                 <div className="movie_description">
                   <h2>{movie.title}</h2>
+                  <span>{movie.img}</span>
                   <section className="movie_details">
                     <div className="movie_year">
                       <span className="title">Year</span>
