@@ -22,21 +22,21 @@ app.get('/genres', function(req, res, genreId) {
 });
 
 app.get('/search', (req, res) => {
-  console.log(`... server GET/search | req.query:`, req.query)
+  console.log(`::: server GET/search | req.query:`, req.query)
   // req.query = params obj
   controllers.getSearch(req, res, req.query.genreId)
 });
 
 app.post('/save', (req, res) => {
   //save movie as favorite into the database
-  console.log(`... server POST/save | req.query:`, req.query)
+  console.log(`::: server POST/save | req.body:`, req.body)
   let movieObj = req.query.movie
   controllers.saveMovie(req, res, movieObj)
 });
 
 app.post('/delete', (req, res, { movie: movieObj }) => {
   //remove movie from favorites into the database
-  console.log(`... server POST/delete | req.body:`, req.body)
+  console.log(`::: server POST/delete | req.body:`, req.body)
   controllers.deleteMovie(req, res, movieObj)
 });
 

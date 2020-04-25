@@ -20,8 +20,7 @@ module.exports = {
     axios
       .get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`)
       .then(apiData => {
-        // apiData.data.results = [ {movie}s ... ]
-        let movies = JSON.parse(JSON.stringify(apiData.data.results)) // array of objs
+        let movies = JSON.parse(JSON.stringify(apiData.data.results)) // array of movie objs
         res.send(movies)
         // TODO: refactor for params/options
       })

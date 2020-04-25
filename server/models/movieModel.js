@@ -7,35 +7,32 @@ const { db, Movie } = require('../../db/mongodb')
 
 module.exports = {
   // Save API data in the DB
-  save: (movieObj) => {
-    // apiData.genres or apiData
-    // let update = {
-    //   title,
-    //   rating,
-    //   img,
-    //   descr
-    // }
+  save: (req, res, { id, vote_average, title, release_date, overview, poster_path }) => {
     let options = {
       upsert: true
     }
-    // let movieToSave = new Movie({
-    //   title: title,
-    //   rating: rating,
-    //   img: img,
-    //   descr: descr,
-    //   year: year
-    // })
-    Movie.createAsync(movieObj)
-    // db.movieObj.create(movieObj, (err) => {
-    //   if (err) console.log(`! ERR: models.save | movie: ${movieObj.title}`, err)
-    // })
+    let movieToSave = new Movie({
+      id: id,
+      title: title,
+      rating: vote_average,
+      img: poster_path,
+      descr: overview,
+      year: release_date
+    })
+    Movie.createAsync(movieToSave)
+      .then(output => {
+        console.log(`::: Movie.createAsync | output:`, output)
+        res.send(201)
+      })
+      .catch(err => {
+        console.log(`! ERR | Movie.createAsync:`, err)
+      })
   },
 
   // Get stored data from DB
   retrieve: ({ title }) => {
-    let storedMovies = db.movies.find({ title })
-    next(storedMovies)
-    console.log(`$$ storedMovies in DB:`, storedMovies)
+    let storedMovies = Movie.find()
+    console.log(`::: Movie.retrieve storedMovies:`, storedMovies)
     res.send(storedMovies)
   },
 

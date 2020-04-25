@@ -15,7 +15,7 @@ class Movies extends React.Component {
   // You can tell which list is currently being rendered based on whether the prop "showFaves" is false (search results) or true (fave list) (within index.jsx)
 
   favorite (movieObj) {
-    console.log(`... favorite() | movieObj.title:`, movieObj.title)
+    console.log(`::: favorite() | movieObj.title:`, movieObj.title)
     this.props.saveMovie(movieObj)
   }
 

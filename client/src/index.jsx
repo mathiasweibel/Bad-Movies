@@ -34,10 +34,10 @@ class App extends React.Component {
 
   saveMovie (movieObj) {
     // same as above but do something diff
-    console.log(`... App.saveMovie | movieObj.title:`, movieObj.title)
+    console.log(`::: App.saveMovie | movieObj.title:`, movieObj.title)
     axios.post('/save', { params: { movie: movieObj } })
       .then((output) => {
-        console.log(`... saveMovie | output:`, output)
+        console.log(`::: App.saveMovie | output:`, output)
         // do something w/ output
       })
       .catch(err => console.log(`! ERR | saveMovie:`, err))
