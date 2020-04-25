@@ -46,6 +46,7 @@ class App extends React.Component {
   deleteMovie (movieObj) {
     // same as above but do something diff
     axios.delete('/delete', { params: { movie: movieObj } })
+      .then(())
   }
 
   swapFavorites () {

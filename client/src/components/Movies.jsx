@@ -16,7 +16,7 @@ class Movies extends React.Component {
   // }
 
   favorite (movieObj) {
-    console.log(`::: favorite() | movieObj.title:`, movieObj.title)
+    console.log(`::: favorite() | movieObj:`, movieObj)
     this.props.saveMovie(movieObj)
   }
 
@@ -25,22 +25,24 @@ class Movies extends React.Component {
       <ul className="movies">
         {this.props.movies.map(movie => {
           return (
-            <li className="movie_item" onClick={this.favorite(movie)} key={movie.id}>
-              <img src={movie.img} />
-              <div className="movie_description">
-                <h2>{movie.title}</h2>
-                <section className="movie_details">
-                  <div className="movie_year">
-                    <span className="title">Year</span>
-                    <span>{movie.year}</span>
-                  </div>
-                  <div className="movie_rating">
-                    <span className="title">Rating</span>
-                    <span>{movie.rating}</span>
-                  </div>
-                </section>
-              </div>
-            </li>
+            <a href="#" onClick={this.favorite(movie)}>
+              <li className="movie_item" key={movie.id}>
+                <img src={movie.img} />
+                <div className="movie_description">
+                  <h2>{movie.title}</h2>
+                  <section className="movie_details">
+                    <div className="movie_year">
+                      <span className="title">Year</span>
+                      <span>{movie.year}</span>
+                    </div>
+                    <div className="movie_rating">
+                      <span className="title">Rating</span>
+                      <span>{movie.rating}</span>
+                    </div>
+                  </section>
+                </div>
+              </li>
+            </a>
           )
         })}
 
