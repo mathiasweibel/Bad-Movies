@@ -1,10 +1,10 @@
 import React from 'react'
-import path from 'path'
+import urljoin from 'url-join'
 
 class Movies extends React.Component {
   constructor(props) {
     super(props)
-    this.favorite = this.favorite.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   // Make an onClick for each list item. If the movies shown is the search results, 
@@ -16,8 +16,8 @@ class Movies extends React.Component {
   // componentDidMount () {
   // }
 
-  favorite (movieObj) {
-    console.log(`::: favorite() | movieObj:`, movieObj)
+  handleClick (movieObj) {
+    console.log(`::: handleClick() | movieObj:`, movieObj)
     this.props.saveMovie(movieObj)
   }
 
@@ -26,8 +26,8 @@ class Movies extends React.Component {
       <ul className="movies">
         {this.props.movies.map(movie => {
           return (
-            <a href="#" onClick={this.favorite(movie)}>
-              <li className="movie_item" key={movie.id}>
+            <li className="movie_item" key={movie.id}>
+              <a href="#" onClick={() => this.handleClick(movie)}>
                 <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
                 <div className="movie_description">
                   <h2>{movie.title}</h2>
@@ -43,29 +43,10 @@ class Movies extends React.Component {
                     </div>
                   </section>
                 </div>
-              </li>
-            </a>
+              </a>
+            </li>
           )
         })}
-
-
-        {/* <li className="movie_item">
-          <img src="https://lh3.googleusercontent.com/97gnjRiv2zIRnDupzfxYFoI-6zlIK3jKgb6KOCDf_tjWkY9epbITdSFIbiKhuccOqQ=w300" />
-          <div className="movie_description">
-            <h2>De Wae</h2>
-            <section className="movie_details">
-              <div className="movie_year">
-                <span className="title">Year</span>
-                <span>2018</span>
-              </div>
-              <div className="movie_rating">
-                <span className="title">Rating</span>
-                <span>10.0</span>
-              </div>
-            </section>
-          </div>
-        </li> */}
-
       </ul>
     );
   }

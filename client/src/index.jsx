@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       movies: [],
-      favorites: [{deway: "favorites"}],
+      favorites: [],
       showFaves: false
     }
     // Bind
@@ -34,10 +34,15 @@ class App extends React.Component {
   saveMovie (movieObj) {
     // same as above but do something diff
     console.log(`::: App.saveMovie | movieObj.title:`, movieObj.title)
+    let newFaves = this.state.favorites.slice()
+    newFaves.push({ [movieObj.title]: 'favorites' })
+    this.setState({
+      favorites: newFaves
+    }, console.log(`* this.state:`, this.state))
     axios.post('/save', { params: { movie: movieObj } })
       .then((output) => {
         console.log(`::: App.saveMovie | output:`, output)
-        // do something w/ output
+        //
       })
       .catch(err => console.log(`! ERR | saveMovie:`, err))
   }
